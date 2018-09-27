@@ -1,0 +1,304 @@
+swagger: '2.0'
+info:
+  description: HIT协议定义
+  version: '0.1'
+  title: HIT Protocol
+  termsOfService: 'http://www.hitchain.org'
+  contact:
+    email: devteam@hitchain.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: www.hitchain.org
+basePath: /v0.1
+tags:
+  - name: hit
+    description: HIT Protocol
+    externalDocs:
+      description: 更详细描述
+      url: 'http://www.hitchain.org'
+schemes:
+  - https
+paths:
+  /hit/clone:
+    get:
+      tags:
+        - hit
+      summary: 复制远程仓库到本地
+      description: 复制远程仓库到本地
+      operationId: clone
+      consumes:
+        - text/plain
+      produces:
+        - octet-stream
+      parameters:
+        - name: auth_token
+          in: header
+          description: 用户认证 token
+          required: false
+          type: string
+        - name: url
+          in: query
+          type: string
+          description: 远程仓库地址
+          required: true
+      responses:
+        '405':
+          description: Invalid input
+  /hit/push:
+    post:
+      tags:
+        - hit
+      summary: 推送到远程仓库
+      description: 把本地提交推送到远程仓库
+      operationId: push
+      consumes:
+        - text/plain
+      produces:
+        - '*/*'
+      parameters:
+        - name: data
+          in: body
+          description: 推送的内容
+          required: true
+          type: string
+        - name: auth_token
+          in: header
+          description: 用户认证 token
+          required: true
+          type: string
+        - name: url
+          in: query
+          description: 远程仓库地址
+          required: true
+          type: string
+      responses:
+        '405':
+          description: Invalid input
+  /hit/pull:
+    get:
+      tags:
+        - hit
+      summary: 同步远程仓库到本地
+      description: 同步远程仓库到本地
+      operationId: pull
+      consumes:
+        - text/plain
+      produces:
+        - '*/*'
+      parameters:
+        - name: auth_token
+          in: header
+          description: 用户认证 token
+          required: false
+          type: string
+        - name: url
+          in: query
+          description: 远程仓库地址
+          required: true
+          type: string
+      responses:
+        '405':
+          description: Invalid input
+  /hit/fetch:
+    get:
+      tags:
+        - hit
+      summary: 同步远程仓库到本地
+      description: 同步远程仓库到本地
+      operationId: fetch
+      consumes:
+        - text/plain
+      produces:
+        - '*/*'
+      parameters:
+        - name: auth_token
+          in: header
+          description: 用户认证 token
+          required: false
+          type: string
+        - name: url
+          in: query
+          description: 远程仓库地址
+          required: true
+          type: string
+      responses:
+        '405':
+          description: Invalid input
+  /hit/get:
+    get:
+      tags:
+        - hit
+      summary: 获取远程文件
+      description: 获取远程文件
+      operationId: get
+      consumes:
+        - text/plain
+      produces:
+        - '*/*'
+      parameters:
+        - name: auth_token
+          in: header
+          description: 用户认证 token
+          required: false
+          type: string
+        - name: url
+          in: query
+          description: 远程文件地址
+          required: true
+          type: string
+      responses:
+        '405':
+          description: Invalid input
+  /hit/put:
+    post:
+      tags:
+        - hit
+      summary: 上传远程文件
+      description: 上传远程文件
+      operationId: put
+      consumes:
+        - text/plain
+      produces:
+        - '*/*'
+      parameters:
+        - name: data
+          in: body
+          description: 推送的内容
+          required: true
+          type: string
+        - name: auth_token
+          in: header
+          description: 用户认证 token
+          required: true
+          type: string
+        - name: url
+          in: query
+          description: 远程文件地址
+          required: true
+          type: string
+      responses:
+        '405':
+          description: Invalid input
+  /hit/del:
+    delete:
+      tags:
+        - hit
+      summary: 删除远程仓库或文件
+      description: 删除远程仓库或文件
+      operationId: del
+      consumes:
+        - text/plain
+      produces:
+        - '*/*'
+      parameters:
+        - name: auth_token
+          in: header
+          description: 用户认证 token
+          required: true
+          type: string
+        - name: url
+          in: query
+          description: 远程仓库或文件地址
+          required: true
+          type: string
+      responses:
+        '405':
+          description: Invalid input
+  '/hit/user/{userName}':
+    get:
+      tags:
+        - hit
+      summary: 用户信息
+      description: 用户信息
+      operationId: userGet
+      consumes:
+        - text/plain
+      produces:
+        - '*/*'
+      parameters:
+        - name: auth_token
+          in: header
+          description: 用户认证 token
+          required: true
+          type: string
+        - name: userName
+          in: path
+          description: 用户名
+          required: true
+          type: string
+      responses:
+        '405':
+          description: Invalid input
+    post:
+      tags:
+        - hit
+      summary: 添加用户
+      description: 添加用户
+      operationId: userAdd
+      consumes:
+        - text/plain
+      produces:
+        - '*/*'
+      parameters:
+        - name: auth_token
+          in: header
+          description: 用户认证 token
+          required: true
+          type: string
+        - name: userName
+          in: path
+          description: 用户名
+          required: true
+          type: string
+      responses:
+        '405':
+          description: Invalid input
+    put:
+      tags:
+        - hit
+      summary: 更新用户
+      description: 更新用户
+      operationId: userEdit
+      consumes:
+        - text/plain
+      produces:
+        - '*/*'
+      parameters:
+        - name: auth_token
+          in: header
+          description: 用户认证 token
+          required: true
+          type: string
+        - name: userName
+          in: path
+          description: 用户名
+          required: true
+          type: string
+      responses:
+        '405':
+          description: Invalid input
+    delete:
+      tags:
+        - hit
+      summary: 删除用户
+      description: 删除用户
+      operationId: userDelete
+      consumes:
+        - text/plain
+      produces:
+        - '*/*'
+      parameters:
+        - name: auth_token
+          in: header
+          description: 用户认证 token
+          required: true
+          type: string
+        - name: userName
+          in: path
+          description: 用户名
+          required: true
+          type: string
+      responses:
+        '405':
+          description: Invalid input
