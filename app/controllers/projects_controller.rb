@@ -38,6 +38,7 @@ class ProjectsController < Projects::ApplicationController
   end
 
   def create
+    # add comment test by tylerchen.
     @project = ::Projects::CreateService.new(current_user, project_params).execute
 
     if @project.saved?
