@@ -38,7 +38,6 @@ class ProjectsController < Projects::ApplicationController
   end
 
   def create
-    # add test comment to test dev-env by tylerchen
     @project = ::Projects::CreateService.new(current_user, project_params).execute
 
     if @project.saved?
